@@ -40,6 +40,21 @@ def update_todo(id, methods=['PATCH']):
     todo.completed = data.get('completed', todo.completed)
     todo.due_date = data.get('due_date', todo.due_date)
 
+    db.session.commit()
+    return jsonify('Message: To-Do updated successfully!'), 200
+
+#delete a to-do item
+@app.route('/delete_todo/<int:id>', methods=['DELETE'])
+def delete_todo(id):
+    todo = to_do.query.get(id)
+
+    if not todo:
+        return jsonify({'error': 'To-Do not found!'}), 404
+
+    db.session.delete(todo)
+    db.session.commit()
+    return jsonify('Message: To-Do deleted successfully!'), 200
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
