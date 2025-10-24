@@ -11,8 +11,8 @@ function App() {
   const fetchToDos = async () => {
     const response = await fetch('http://127.0.0.1:5000/todos')
     const data = await response.json()
-    setToDos(data.todo)
-    console.log(data.todo)
+    setToDos(data.to_do)
+    console.log(data.to_do)
   }
 
   return (
